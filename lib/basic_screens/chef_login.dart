@@ -1,6 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:test_flutter/basic_screens/chef_dice.dart';
 import 'package:test_flutter/widget/chef_login_button.dart';
+import 'package:flutter/cupertino.dart';
 
 class LogIn extends StatefulWidget {
   @override
@@ -8,8 +10,9 @@ class LogIn extends StatefulWidget {
 }
 
 class _LogInState extends State<LogIn> {
-  TextEditingController controller = TextEditingController();
-  TextEditingController controller2 = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -57,6 +60,24 @@ class _LogInState extends State<LogIn> {
     );
   }
 
+  void _register(BuildContext context) async {
+    print('hihi');
+    final UserCredential result = await FirebaseAuth.instance
+        .createUserWithEmailAndPassword(
+            email: _emailController.text, password: _passwordController.text);
+    final FirebaseUser user = result.user;
+
+    if (user == null) {
+      final snacBar = SnackBar(
+        content: Text('plz try again later.'),
+      );
+      Scaffold.of(context).showSnackBar(snacBar);
+    }
+
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => Dice(email: user.email)));
+  }
+
   Widget _buildLoginForm() {
     return Form(
       child: Theme(
@@ -74,14 +95,14 @@ class _LogInState extends State<LogIn> {
           child: Column(
             children: [
               TextField(
-                controller: controller,
+                controller: _emailController,
                 decoration: InputDecoration(
                   labelText: 'Enter "dice"',
                 ),
                 keyboardType: TextInputType.emailAddress,
               ),
               TextField(
-                controller: controller2,
+                controller: _passwordController,
                 decoration: InputDecoration(
                   labelText: 'Enter Password',
                 ),
@@ -102,23 +123,11 @@ class _LogInState extends State<LogIn> {
                       size: 35.0,
                     ),
                     onPressed: () {
-                      if (controller.text == 'admin' &&
-                          controller2.text == '1234') {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (BuildContext context) => Dice(),
-                          ),
-                        );
-                      } else if (controller.text == 'admin' &&
-                          controller2.text != '1234') {
-                        showSnackBar2(context);
-                      } else if (controller.text != 'admin' &&
-                          controller2.text == '1234') {
-                        showSnackBar3(context);
-                      } else {
-                        showSnackBar(context);
-                      }
+                      _register(context);
+                      // if (_formKey.currentState.validate()) {
+                      // _register(context);
+                      // joinOrLogin.isJoin ? _register(context) : _login(context);
+                      // }
                     }),
               ),
             ],

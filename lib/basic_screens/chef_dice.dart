@@ -1,15 +1,21 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class Dice extends StatefulWidget {
+  Dice({this.email});
+
+  final String email;
   @override
   _DiceState createState() => _DiceState();
 }
 
 class _DiceState extends State<Dice> {
+  String email;
   int leftImg = 1;
   int rightImg = 1;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,6 +28,12 @@ class _DiceState extends State<Dice> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Text(email),
+            FlatButton(
+                onPressed: () {
+                  FirebaseAuth.instance.signOut();
+                },
+                child: Text('logout')),
             Padding(
               padding: EdgeInsets.all(32.0),
               child: Row(

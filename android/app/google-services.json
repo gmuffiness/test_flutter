@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "404108197676",
+    "firebase_url": "https://fir-practice-b06cb.firebaseio.com",
+    "project_id": "fir-practice-b06cb",
+    "storage_bucket": "fir-practice-b06cb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:404108197676:android:aef5e48118cc0e15403689",
+        "android_client_info": {
+          "package_name": "com.gmuffiness.test_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "404108197676-hmc3anklelt1u44nmbv30trturiung43.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_TsebHBPsEAR1zz5bG5nN43IXLlPNGsE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "404108197676-hmc3anklelt1u44nmbv30trturiung43.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
